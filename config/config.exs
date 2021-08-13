@@ -9,7 +9,6 @@
 # move said applications out of the umbrella.
 import Config
 
-import_config "../apps/*/config/config.exs"
 # Sample configuration:
 config :logger, :console,
   level: :info,
@@ -38,7 +37,7 @@ config :job_offers,
   ],
   earth_radius: 6371
 
-
+# Configures the endpoint
 config :job_offers_service, JobOffersServiceWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "5eWBADigmcUlWCk8WThah8OzFDioZiW+E1Odot4PV6QWmVTviW0dedaE1gKLETOr",
@@ -53,3 +52,7 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Import environment specific config. This must remain at the bottom
+# of this file so it overrides the configuration defined above.
+import_config "#{Mix.env()}.exs"

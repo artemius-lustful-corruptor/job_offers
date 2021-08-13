@@ -49,6 +49,7 @@ defmodule JobOffersService.MixProject do
       {:gettext, "~> 0.11"},
       {:plug_cowboy, "~> 2.0"},
       {:job_offers, in_umbrella: true},
+      {:jason, "~> 1.2"}
     ]
   end
 

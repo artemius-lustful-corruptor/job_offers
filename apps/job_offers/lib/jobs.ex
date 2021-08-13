@@ -51,12 +51,15 @@ defmodule JobOffers.Jobs do
 
     {continent, _} = Continents.find_continent(continents, lat, lon)
 
-    Enum.reduce(map[continent], [], fn x, acc ->
-      point_a = {String.to_float(x["office_latitude"]), String.to_float(x["office_longitude"])}
+    res =
+      Enum.reduce(map[continent], [], fn x, acc ->
+        point_a = {String.to_float(x["office_latitude"]), String.to_float(x["office_longitude"])}
 
-      distance = calculate_distance(point_a, point_b)
-      {:ok, build_nearest_jobs_list(x, acc, distance, radius)}
-    end)
+        distance = calculate_distance(point_a, point_b)
+        build_nearest_jobs_list(x, acc, distance, radius)
+      end)
+
+    {:ok, res}
   end
 
   defp count_jobs_per_continent(map, continents) do

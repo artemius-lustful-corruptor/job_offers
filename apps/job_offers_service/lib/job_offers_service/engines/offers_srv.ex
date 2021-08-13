@@ -17,7 +17,7 @@ defmodule JobOffersService.OffersSrv do
   end
 
   def handle_call({:nearest_jobs, point, radius}, _from, state) do
-    jobs = Jobs.find_nearest_jobs(state, radius, point)
+    {:ok, jobs} = Jobs.find_nearest_jobs(state, radius, point)
     {:reply, jobs, state}
   end
 end
