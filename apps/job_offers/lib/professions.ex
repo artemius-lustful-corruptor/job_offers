@@ -12,7 +12,7 @@ defmodule JobOffers.Professions do
   def set_professions(professions_path) do
     try do
       res =
-        Path.join(@priv_dir, professions_path) |> IO.inspect()
+        Path.join(@priv_dir, professions_path)
         |> File.stream!()
         |> CSV.decode!([{:headers, true}])
         |> Enum.reduce(%{}, fn x, acc ->

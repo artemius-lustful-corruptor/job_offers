@@ -13,10 +13,10 @@ defmodule JobOffers.Jobs do
   """
   @spec set_grouped_jobs() :: {:ok, map()} | {:error, :grouping}
   def set_grouped_jobs do
-    with {:ok, professions_path} <- Confex.fetch_env(:jobs_offers, :professions_csv),
-         {:ok, path} <- Confex.fetch_env(:jobs_offers, :jobs_csv),
-         {:ok, res} <- Confex.fetch_env(:jobs_offers, :result_map),
-         {:ok, continents} <- Confex.fetch_env(:jobs_offers, :continents) ,
+    with {:ok, professions_path} <- Confex.fetch_env(:job_offers, :professions_csv),
+         {:ok, path} <- Confex.fetch_env(:job_offers, :jobs_csv),
+         {:ok, res} <- Confex.fetch_env(:job_offers, :result_map),
+         {:ok, continents} <- Confex.fetch_env(:job_offers, :continents),
          {:ok, professions} <- Professions.set_professions(professions_path),
          {:ok, groupped} <- set_jobs_assoc_professions(path, res, professions, continents) do
       {:ok, groupped}
@@ -28,11 +28,26 @@ defmodule JobOffers.Jobs do
   end
 
   @doc """
+  Getting groupped jobs by continents
+  """
+  @spec get_groupped_jobs_by_continents() :: {:ok, map()} | {:error, atom()}
+  def get_groupped_jobs_by_continents() do
+    with {:ok, continents} <- Confex.fetch_env(:job_offers, :continents),
+         {:ok, groupped} <- set_grouped_jobs() do
+      {:ok, count_jobs_per_continent(groupped, continents)}
+    else
+      e ->
+        Logger.error("Getting jobs by continent error with reason: #{inspect(e)}")
+        {:error, :groupping_by_continents}
+    end
+  end
+
+  @doc """
   Getting nearest jobs
   """
   @spec find_nearest_jobs(map(), integer(), tuple()) :: {:ok, list()}
   def find_nearest_jobs(map, radius, {lat, lon} = point_b) do
-    {:ok, continents} = Confex.fetch_env(:task_3, :continents)
+    {:ok, continents} = Confex.fetch_env(:job_offers, :continents)
 
     {continent, _} = Continents.find_continent(continents, lat, lon)
 
@@ -44,10 +59,7 @@ defmodule JobOffers.Jobs do
     end)
   end
 
-  @doc """
-  Calculate jobs per continent
-  """
-  def count_jobs_per_continent(map, continents) do
+  defp count_jobs_per_continent(map, continents) do
     Enum.reduce(continents, %{}, fn x, acc ->
       {continent, _} = x
 
@@ -96,7 +108,7 @@ defmodule JobOffers.Jobs do
          ElixirMath.cos(lat_a) * ElixirMath.cos(lat_b) * ElixirMath.cos(lon_a - lon_b))
       |> ElixirMath.acos()
 
-    r = Confex.get_env(:task_3, :earth_radius)
+    r = Confex.get_env(:job_offers, :earth_radius)
     d * r
   end
 

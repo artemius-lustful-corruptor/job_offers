@@ -10,6 +10,7 @@
                         'Elixir.Phoenix.HTML.FormData.Ecto.Changeset',
                         'Elixir.Phoenix.HTML.Safe.Decimal',
                         'Elixir.Plug.Exception.Ecto.CastError',
+                        'Elixir.Plug.Exception.Ecto.InvalidChangesetError',
                         'Elixir.Plug.Exception.Ecto.NoResultsError',
                         'Elixir.Plug.Exception.Ecto.Query.CastError',
                         'Elixir.Plug.Exception.Ecto.StaleEntryError',
@@ -17,6 +18,6 @@
                         'Elixir.Plug.Exception.Phoenix.Ecto.PendingMigrationError',
                         'Elixir.Plug.Exception.Phoenix.Ecto.StorageNotCreatedError']},
               {registered,[]},
-              {vsn,"4.3.0"},
+              {vsn,"4.1.0"},
               {mod,{'Elixir.Phoenix.Ecto',[]}},
               {env,[{exclude_ecto_exceptions_from_plug,[]}]}]}.
