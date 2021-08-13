@@ -7,8 +7,8 @@
 # General application configuration
 use Mix.Config
 
-config :job_offers_service,
-  ecto_repos: [JobOffersService.Repo]
+#config :job_offers_service,
+#  ecto_repos: [JobOffersService.Repo]
 
 # Configures the endpoint
 config :job_offers_service, JobOffersServiceWeb.Endpoint,

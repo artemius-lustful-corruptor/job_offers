@@ -4,7 +4,7 @@ defmodule JobOffers.Professions do
   """
 
   require Logger
-  @priv_dir :code.priv_dir(:jobs_offers)
+  @priv_dir :code.priv_dir(:job_offers)
 
   @doc """
   Getting professions
@@ -12,7 +12,7 @@ defmodule JobOffers.Professions do
   def set_professions(professions_path) do
     try do
       res =
-        Path.join(@priv_dir, professions_path)
+        Path.join(@priv_dir, professions_path) |> IO.inspect()
         |> File.stream!()
         |> CSV.decode!([{:headers, true}])
         |> Enum.reduce(%{}, fn x, acc ->

@@ -6,7 +6,7 @@ defmodule JobOffers.Jobs do
   alias JobOffers.Continents
   alias JobOffers.Professions
   require Logger
-  @priv_dir :code.priv_dir(:jobs_offers)
+  @priv_dir :code.priv_dir(:job_offers)
 
   @doc """
   Setting grouped jobs
@@ -16,7 +16,7 @@ defmodule JobOffers.Jobs do
     with {:ok, professions_path} <- Confex.fetch_env(:jobs_offers, :professions_csv),
          {:ok, path} <- Confex.fetch_env(:jobs_offers, :jobs_csv),
          {:ok, res} <- Confex.fetch_env(:jobs_offers, :result_map),
-         {:ok, continents} <- Confex.fetch_env(:jobs_offers, :continents),
+         {:ok, continents} <- Confex.fetch_env(:jobs_offers, :continents) ,
          {:ok, professions} <- Professions.set_professions(professions_path),
          {:ok, groupped} <- set_jobs_assoc_professions(path, res, professions, continents) do
       {:ok, groupped}

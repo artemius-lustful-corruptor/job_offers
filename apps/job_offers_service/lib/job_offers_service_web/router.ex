@@ -13,7 +13,7 @@ defmodule JobOffersServiceWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", JobOffersServiceWeb do
+  scope "/jobs/offers", JobOffersServiceWeb do
     pipe_through :api
 
     get "/filter", OffersController, :show

@@ -10,7 +10,7 @@ defmodule JobOffersService.Application do
       # Start the offers_srv
       JobOffersService.OffersSrv,
       # Start the Ecto repository
-      JobOffersService.Repo,
+      #JobOffersService.Repo,
       # Start the Telemetry supervisor
       JobOffersServiceWeb.Telemetry,
       # Start the PubSub system
