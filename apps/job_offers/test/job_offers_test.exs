@@ -4,7 +4,7 @@ defmodule JobOffersTest do
   alias JobOffers.Jobs
   
   test "getting jobs offers groupped by continent" do
-    {:ok, res} = Jobs.get_groupped_jobs_by_continents()
+    {:ok, res} = Jobs.distribute_by_continent()
 
     assert res == %{
              "Africa" => %{

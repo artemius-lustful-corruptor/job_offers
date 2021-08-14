@@ -11,14 +11,14 @@ defmodule JobOffersService.OffersSrv do
     GenServer.call(__MODULE__, {:nearest_jobs, point, radius})
   end
 
-  def init(state) do
+  def init(_state) do
     # TODO adding more concurrency
-    Jobs.set_grouped_jobs()
+    Jobs.group()
   end
 
   def handle_call({:nearest_jobs, point, radius}, _from, state) do
     jobs =
-      case Jobs.find_nearest_jobs(state, radius, point) do
+      case Jobs.get_nearest(state, radius, point) do
         {:ok, res} -> res
         {:error, _} -> []
       end
